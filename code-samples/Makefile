@@ -1,7 +1,7 @@
 all: main
 	
 main:
-	gcc main.c -o DO
+	gcc main.c -o test
 	
 clean:
-	rm -rf *.o DO
+	rm -rf *.o test

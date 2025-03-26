@@ -1,16 +1,19 @@
 #!/bin/bash
-TOKEN="7879359050:AAFSFOGLGrGeuOTZC5-Fp7_Zlov2j1O0-qw"
-CHAT_ID="7574997054"
+source config.sh
+BOT_NAME="ziggsman D06 CI/CD"
 
 send_notification() {
-    local status_ci=$1
-    local status_cd=$2
-    local message="Статус СI: $status_ci, Статус CD: status_cd"
+    local status=$1   # Принимаем статус как аргумент
+    local stage_name=$2  # Принимаем название этапа как аргумент
+    local message="${BOT_NAME}: Этап "${stage_name}" = ${status}"
+   
+    echo "status: ${status}"
+    echo "stage_name: ${stage_name}"
+    echo "message: ${message}"
 
     curl -s -X POST \
-        "https://api.telegram.org/bot$TOKEN/sendMessage" \
-         -F chat_id=$CHAT_ID \
-         -F text="$message"
+        "https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage" \
+        -F chat_id=${TELEGRAM_CHAT_ID} \
+        -F text="${message}"
 }
-send_notification "Успешно" "Успешно"
-
+send_notification "$1" "$2" # Передаем аргументы в send_notification
